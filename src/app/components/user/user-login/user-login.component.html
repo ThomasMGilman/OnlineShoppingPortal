@@ -1,0 +1,107 @@
+<div *ngIf='isLoggingIn'>
+    <h4>Login:</h4>
+    <div *ngIf="error">
+        <hr>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"
+                    (click)="hideError()">&times;</span></button>
+            <strong>Warning!</strong> Error Logging in: {{errMsg}}.
+        </div>
+        <hr>
+    </div>
+    <form class="form-horizontal" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="logName" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="logName" formControlName="logName">
+            </div>
+            <div *ngIf='logName.invalid && (logName.dirty || logName.touched)' class='alert alert-danger'>
+                Name is required!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="logPassword" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="logPassword" formControlName="logPassword">
+            </div>
+            <div *ngIf='logPassword.invalid && (logPassword.dirty || logPassword.touched)' class='alert alert-danger'>
+                Password is required!
+            </div>
+        </div>
+        <div class="col-sm-10">
+            <input type="radio" id="admin" name="userType" value="admin">
+            <label for="admin">Administrator</label><br>
+            <input type="radio" id="customer" name="userType" value="customer" checked="checked">
+            <label for="customer">Customer</label><br>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Login</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div *ngIf='!isLoggingIn'>
+    <h4>User Registration:</h4>
+    <div *ngIf="error">
+        <hr>
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"
+                    (click)="hideError()">&times;</span></button>
+            <strong>Warning!</strong> Error Registering: {{errMsg}}.
+        </div>
+        <hr>
+    </div>
+    <form class="form-horizontal" [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="regName" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="regName" formControlName="regName">
+            </div>
+            <div *ngIf='regName.invalid && (regName.dirty || regName.touched)' class='alert alert-danger'>
+                Name is required!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="regPassword" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="regPassword" formControlName="regPassword">
+            </div>
+            <div *ngIf='regPassword.invalid && (regPassword.dirty || regPassword.touched)' class='alert alert-danger'>
+                Password is required!
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="regRePassword" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" id="regRePassword" formControlName="regRePassword">
+            </div>
+            <div *ngIf='regRePassword.invalid && (regRePassword.dirty || regRePassword.touched)' class='alert alert-danger'>
+                Retyped Password is required!
+            </div>
+        </div>
+        <div *ngIf='regPassword.value != regRePassword.value' class='alert alert-danger'>
+            Password does not match retyped password!
+        </div>
+        <div class="form-group">
+            <label for="regEmail" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="regEmail" formControlName="regEmail">
+            </div>
+            <div *ngIf='regEmail.invalid && (regEmail.dirty || regEmail.touched)' class='alert alert-danger'>
+                Email is required!
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Register</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class='container-fluid align-content-center'>
+    <button type="button" class="btn btn-outline-primary" id="loginButton" (click)="toggleLoggingIn(true)">Login</button>
+    <button type="button" class="btn btn-outline-secondary" id="registerButton" (click)="toggleLoggingIn(false)">Register</button>
+</div>
